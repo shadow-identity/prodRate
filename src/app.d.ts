@@ -9,3 +9,8 @@ declare namespace App {
 	// interface Session {}
 	// interface Stuff {}
 }
+
+declare class BarcodeDetector {
+	detect: (imageBitmapSource: HTMLVideoElement) => Promise<import('$lib/types').DetectedBarcode[]>
+	getSupportedFormats: () => Promise<string[]>
+}
