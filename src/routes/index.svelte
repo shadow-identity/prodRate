@@ -6,7 +6,7 @@
 	import Canvas from './.canvas.svelte'
 	import { browser, dev } from '$app/env'
 
-	if (browser) document.title = `${dev && 'DEV'} Product Rate`
+	if (browser) document.title = `${dev ? 'DEV ' : ''}Product Rate`
 
 	let refreshBarcodes: () => Promise<void>
 

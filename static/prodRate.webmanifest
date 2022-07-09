@@ -1,0 +1,36 @@
+{
+	"name": "Your Personal Product Rate",
+	"short_name": "Product Rate",
+	"description": "Product Rate app that shows you was you like or dont like a product before.",
+	"icons": [
+		{
+			"src": "icons/barcode_32.png",
+			"sizes": "32x32",
+			"type": "image/png"
+		},
+		{
+			"src": "icons/barcode_64.png",
+			"sizes": "64x64",
+			"type": "image/png"
+		},
+		{
+			"src": "icons/barcode_128.png",
+			"sizes": "128x128",
+			"type": "image/png"
+		},
+		{
+			"src": "icons/barcode_128.png",
+			"sizes": "128x128",
+			"type": "image/png"
+		},
+		{
+			"src": "icons/barcode_512.png",
+			"sizes": "512x512",
+			"type": "image/png"
+		}
+	],
+	"start_url": "./index.html",
+	"display": "fullscreen",
+	"theme_color": "#B12A34",
+	"background_color": "#B12A34"
+}

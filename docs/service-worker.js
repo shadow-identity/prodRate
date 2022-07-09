@@ -1,8 +1,8 @@
 const build = [
-  "/prodRate/_app/immutable/start-d6ba06fd.js",
+  "/prodRate/_app/immutable/start-e99eda4d.js",
   "/prodRate/_app/immutable/layout.svelte-f815be52.js",
   "/prodRate/_app/immutable/error.svelte-9433587f.js",
-  "/prodRate/_app/immutable/pages/index.svelte-d912585d.js",
+  "/prodRate/_app/immutable/pages/index.svelte-c9427a5d.js",
   "/prodRate/_app/immutable/assets/pages/index.svelte-23404c33.css",
   "/prodRate/_app/immutable/chunks/index-66a614ae.js",
   "/prodRate/_app/immutable/chunks/index-0d3d1221.js"
