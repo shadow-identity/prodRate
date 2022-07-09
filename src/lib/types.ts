@@ -7,6 +7,5 @@ export type DetectedBarcode = {
 	rawValue: string
 }
 
-export type Barcode = DetectedBarcode & { preference: Preference }
+export type Barcode = DetectedBarcode & { preference: Preference, selected: boolean }
 
-export type BarcodesDetectedEvent = DetectedBarcode[]

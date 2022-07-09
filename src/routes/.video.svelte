@@ -4,23 +4,27 @@
 </script>
 
 <script lang="ts">
-	import { browser } from '$app/env'
-	import type { BarcodesDetectedEvent, DetectedBarcode } from '$lib/types'
+	import { browser, dev } from '$app/env'
+	import type { Barcode, DetectedBarcode } from '$lib/types'
 	import { createEventDispatcher, onMount } from 'svelte'
+	import { barcodes } from '$lib/stores'
 
-	export let videoElement: HTMLVideoElement
+	export let videoElement: HTMLVideoElement | undefined = undefined
+
 	let errorMessage: string
 	const dispatch = createEventDispatcher<{
-		barcodesDetected: BarcodesDetectedEvent
+		barcodesDetected: Barcode[]
 		videoReady: null
 	}>()
 
 	onMount(() => {
-		if (browser) processBarcode()
+		if (browser) refreshBarcodes()
 	})
 
 	const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
-	export let processBarcode = async () => {
+	export let refreshBarcodes = async () => {
+		barcodes.reset()
+		if (!videoElement) return
 		try {
 			videoElement.onloadeddata = () => dispatch('videoReady')
 
@@ -34,27 +38,21 @@
 			try {
 				const barcodeDetector = new BarcodeDetector()
 				let attempt = 0
-				let barcodes: DetectedBarcode[] = []
+				let detectedBarcodes: DetectedBarcode[] = []
 				do {
 					const firstAttempt = await barcodeDetector.detect(videoElement)
 					attempt++
-					await sleep(50)
+					await sleep(dev ? 500 : 50)
 					if (firstAttempt.length) {
 						const secondAttempt = await barcodeDetector.detect(videoElement)
-						if (equals(firstAttempt, secondAttempt)) {
-							barcodes = firstAttempt
-						} else
-							console.warn(
-								'False alarm',
-								firstAttempt.map((barcode) => barcode.rawValue),
-								secondAttempt
-							)
+						if (equals(firstAttempt, secondAttempt)) detectedBarcodes = firstAttempt
 					}
 					attempt > 500 && (await sleep(500))
-				} while (!barcodes.length)
+				} while (!detectedBarcodes.length)
 				videoElement.pause()
 				stream.getVideoTracks().forEach((track) => track.stop())
-				dispatch('barcodesDetected', barcodes)
+				console.log('detected', detectedBarcodes.length)
+				$barcodes = detectedBarcodes as Barcode[]
 			} catch (error) {
 				errorMessage = "Your browser doesn't support Barcode Detector"
 				console.error(error)

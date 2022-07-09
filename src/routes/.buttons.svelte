@@ -1,30 +1,32 @@
 <script lang="ts">
 	import Fab from '@smui/fab'
-	import { get, set } from 'idb-keyval'
+	import { selectedBarcode } from '$lib/stores'
+
 	import { Icon } from '@smui/common'
 	import { createEventDispatcher } from 'svelte'
-	export let id: string
+	import type { Preference } from '$lib/types'
 
-	let state: boolean | undefined
-	;(async () => (state = await get(id)))()
-	const dispatch = createEventDispatcher()
+	const dispatch = createEventDispatcher<{
+		refreshBarcodes: undefined
+		setPreference: Preference
+	}>()
 </script>
 
 <div class="container">
 	<Fab
-		on:click={() => set(id, false)}
-		color={state === false ? 'primary' : undefined}
+		on:click={() => selectedBarcode.prefer(false)}
+		color={$selectedBarcode?.preference === false ? 'primary' : undefined}
 		touch
 		label="dislike"
 	>
 		<Icon class="material-icons">💩</Icon>
 	</Fab>
-	<Fab on:click={() => dispatch('readBarcode')} touch label="scan again">
+	<Fab on:click={() => dispatch('refreshBarcodes')} touch label="scan again">
 		<Icon class="material-icons">refresh</Icon>
 	</Fab>
 	<Fab
-		on:click={() => set(id, true)}
-		color={state === true ? 'primary' : undefined}
+		on:click={() => selectedBarcode.prefer(true)}
+		color={$selectedBarcode?.preference === true ? 'primary' : undefined}
 		touch
 		label="like"
 	>
