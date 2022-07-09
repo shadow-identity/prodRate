@@ -11,11 +11,18 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<meta http-equiv="content-security-policy" content="">
 	<link rel="stylesheet" href="/prodRate/_app/immutable/assets/pages/index.svelte-23404c33.css">
-	<link rel="modulepreload" href="/prodRate/_app/immutable/start-2f73b4dd.js">
+	<link rel="modulepreload" href="/prodRate/_app/immutable/start-d6ba06fd.js">
 	<link rel="modulepreload" href="/prodRate/_app/immutable/chunks/index-66a614ae.js">
 	<link rel="modulepreload" href="/prodRate/_app/immutable/chunks/index-0d3d1221.js">
 	<link rel="modulepreload" href="/prodRate/_app/immutable/layout.svelte-f815be52.js">
 	<link rel="modulepreload" href="/prodRate/_app/immutable/pages/index.svelte-d912585d.js">
+			<script>
+		if ('serviceWorker' in navigator) {
+			addEventListener('load', () => {
+				navigator.serviceWorker.register('/prodRate/service-worker.js');
+			});
+		}
+	</script>
 	<style>
 		* {
 			margin: 0;
@@ -37,7 +44,7 @@
 
 
 		<script type="module" data-sveltekit-hydrate="k56fi6">
-		import { start } from "/prodRate/_app/immutable/start-2f73b4dd.js";
+		import { start } from "/prodRate/_app/immutable/start-d6ba06fd.js";
 		start({
 			target: document.querySelector('[data-sveltekit-hydrate="k56fi6"]').parentNode,
 			paths: {"base":"/prodRate","assets":"/prodRate"},
