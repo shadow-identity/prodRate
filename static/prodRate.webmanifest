@@ -6,27 +6,32 @@
 		{
 			"src": "icons/barcode_32.png",
 			"sizes": "32x32",
-			"type": "image/png"
+			"type": "image/png",
+			"purpose": "maskable"
 		},
 		{
 			"src": "icons/barcode_64.png",
 			"sizes": "64x64",
-			"type": "image/png"
+			"type": "image/png",
+			"purpose": "maskable"
 		},
 		{
 			"src": "icons/barcode_128.png",
 			"sizes": "128x128",
-			"type": "image/png"
+			"type": "image/png",
+			"purpose": "maskable"
 		},
 		{
 			"src": "icons/barcode_128.png",
 			"sizes": "128x128",
-			"type": "image/png"
+			"type": "image/png",
+			"purpose": "maskable"
 		},
 		{
 			"src": "icons/barcode_512.png",
 			"sizes": "512x512",
-			"type": "image/png"
+			"type": "image/png",
+			"purpose": "maskable"
 		}
 	],
 	"start_url": "./index.html",
