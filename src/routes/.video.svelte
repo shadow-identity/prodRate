@@ -8,6 +8,7 @@
 	import type { Barcode, DetectedBarcode } from '$lib/types'
 	import { createEventDispatcher, onMount } from 'svelte'
 	import { barcodes } from '$lib/stores'
+	import { BarcodeDetectorPolyfill } from '$lib/barcode-detector/barcode-detector'
 
 	export let videoElement: HTMLVideoElement | undefined = undefined
 
@@ -20,6 +21,15 @@
 	onMount(() => {
 		if (browser) refreshBarcodes()
 	})
+
+	const getDetector = async () => {
+		if ('BarcodeDetector' in window) {
+			return new BarcodeDetector()
+		} else {
+			console.warn('ZXing BarcodeDetector')
+			return new BarcodeDetectorPolyfill()
+		}
+	}
 
 	const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 	export let refreshBarcodes = async () => {
@@ -36,15 +46,15 @@
 			await videoElement.play()
 
 			try {
-				const barcodeDetector = new BarcodeDetector()
+				const barcodeDetector = await getDetector()
 				let attempt = 0
 				let detectedBarcodes: DetectedBarcode[] = []
 				do {
-					const firstAttempt = await barcodeDetector.detect(videoElement)
+					const firstAttempt = (await barcodeDetector.detect(videoElement)) as DetectedBarcode[]
 					attempt++
 					await sleep(dev ? 500 : 50)
 					if (firstAttempt.length) {
-						const secondAttempt = await barcodeDetector.detect(videoElement)
+						const secondAttempt = (await barcodeDetector.detect(videoElement)) as DetectedBarcode[]
 						if (equals(firstAttempt, secondAttempt)) detectedBarcodes = firstAttempt
 					}
 					attempt > 500 && (await sleep(500))
