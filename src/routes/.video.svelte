@@ -6,7 +6,7 @@
 <script lang="ts">
 	import { browser, dev } from '$app/env'
 	import type { Barcode, DetectedBarcode } from '$lib/types'
-	import { createEventDispatcher, onMount } from 'svelte'
+	import { createEventDispatcher, onDestroy, onMount } from 'svelte'
 	import { barcodes } from '$lib/stores'
 	import { BarcodeDetectorPolyfill } from '$lib/barcode-detector/barcode-detector'
 
@@ -30,7 +30,16 @@
 			return new BarcodeDetectorPolyfill()
 		}
 	}
+	const stopStream = (stream: MediaStream) =>
+		stream.getVideoTracks().forEach((track) => track.stop())
 
+	const handleVisibilityChange = (stream?: MediaStream) => {
+		document.visibilityState === 'visible' ? refreshBarcodes() : stopStream(stream!)
+	}
+	onDestroy(
+		() =>
+			browser && document.removeEventListener('visibilitychange', () => handleVisibilityChange())
+	)
 	const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 	export let refreshBarcodes = async () => {
 		barcodes.reset()
@@ -42,6 +51,7 @@
 				video: { facingMode: 'environment' },
 				audio: false,
 			})
+			document.addEventListener('visibilitychange', () => handleVisibilityChange(stream))
 			videoElement.srcObject = stream
 			await videoElement.play()
 
@@ -58,15 +68,14 @@
 						if (equals(firstAttempt, secondAttempt)) detectedBarcodes = firstAttempt
 					}
 					attempt > 500 && (await sleep(500))
-				} while (!detectedBarcodes.length)
+				} while (document.visibilityState === 'visible' && !detectedBarcodes.length)
 				videoElement.pause()
-				stream.getVideoTracks().forEach((track) => track.stop())
-				console.log('detected', detectedBarcodes.length)
+				stopStream(stream)
 				$barcodes = detectedBarcodes as Barcode[]
 			} catch (error) {
 				errorMessage = "Your browser doesn't support Barcode Detector"
 				console.error(error)
-				stream.getVideoTracks().forEach((track) => track.stop())
+				stopStream(stream)
 			}
 		} catch (error: any) {
 			if (error.message && error.message.includes('Permission')) {
