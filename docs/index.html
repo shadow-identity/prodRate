@@ -11,12 +11,12 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<link rel="manifest" href="/prodRate/prodRate.webmanifest">
 	<meta http-equiv="content-security-policy" content="">
-	<link rel="stylesheet" href="/prodRate/_app/immutable/assets/pages/index.svelte-23404c33.css">
-	<link rel="modulepreload" href="/prodRate/_app/immutable/start-e99eda4d.js">
+	<link rel="stylesheet" href="/prodRate/_app/immutable/assets/pages/index.svelte-07bff64d.css">
+	<link rel="modulepreload" href="/prodRate/_app/immutable/start-517896f3.js">
 	<link rel="modulepreload" href="/prodRate/_app/immutable/chunks/index-66a614ae.js">
 	<link rel="modulepreload" href="/prodRate/_app/immutable/chunks/index-0d3d1221.js">
 	<link rel="modulepreload" href="/prodRate/_app/immutable/layout.svelte-f815be52.js">
-	<link rel="modulepreload" href="/prodRate/_app/immutable/pages/index.svelte-c9427a5d.js">
+	<link rel="modulepreload" href="/prodRate/_app/immutable/pages/index.svelte-6237c3c7.js">
 			<script>
 		if ('serviceWorker' in navigator) {
 			addEventListener('load', () => {
@@ -28,26 +28,37 @@
 		* {
 			margin: 0;
 		}
+
+		html {
+			box-sizing: border-box;
+			height: -webkit-fill-available;
+			overflow: hidden;
+		}
+
+		body {
+			height: -webkit-fill-available;
+		}
 	</style>
 </head>
 
 <body>
-	<div>
+	<div style="height: 100%">
 
 
-<h1 class="svelte-yabg0v">Scan a code!</h1>
-<section id="videoContainer" class="svelte-yabg0v">
-	<video id="videoElement" class="svelte-2goaui">Your browser doesn&#39;t support Barcode Detector
+<main class="svelte-bosn3n"><h1 class="svelte-bosn3n">Scan a code!</h1>
+	<section id="videoContainer" class="svelte-bosn3n">
+	<video id="videoElement" class="svelte-1m5p63n">Your browser doesn&#39;t support Barcode Detector
 	</video>
-	<canvas id="canvasElement" width="0" height="0" class="svelte-1ekhz23"></canvas></section>
+		<canvas id="canvasElement" width="0" height="0" class="svelte-wn1pmj"></canvas></section>
+
+	<section id="buttons" class="svelte-bosn3n"></section>
+</main>
 
 
-
-
-		<script type="module" data-sveltekit-hydrate="k56fi6">
-		import { start } from "/prodRate/_app/immutable/start-e99eda4d.js";
+		<script type="module" data-sveltekit-hydrate="da3xe6">
+		import { start } from "/prodRate/_app/immutable/start-517896f3.js";
 		start({
-			target: document.querySelector('[data-sveltekit-hydrate="k56fi6"]').parentNode,
+			target: document.querySelector('[data-sveltekit-hydrate="da3xe6"]').parentNode,
 			paths: {"base":"/prodRate","assets":"/prodRate"},
 			session: {},
 			route: true,

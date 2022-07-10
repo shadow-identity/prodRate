@@ -25,23 +25,62 @@
 	}
 </script>
 
-<h1>Scan a code!</h1>
-<section id="videoContainer">
-	<Video bind:videoElement bind:refreshBarcodes on:videoReady={adjustDimensions} />
-	<Canvas bind:canvasElement width={canvasWidth} height={canvasHeight} />
-</section>
+<main>
+	<h1>Scan a code!</h1>
+	<section id="videoContainer">
+		<Video bind:videoElement bind:refreshBarcodes on:videoReady={adjustDimensions} />
+		<Canvas bind:canvasElement width={canvasWidth} height={canvasHeight} />
+	</section>
 
-{#if $selectedBarcode && $selectedBarcode.selected}
-	<Buttons on:refreshBarcodes={refreshBarcodes} />
-{/if}
+	<section id="buttons">
+		{#if $selectedBarcode && $selectedBarcode.selected}
+			<Buttons on:refreshBarcodes={refreshBarcodes} />
+		{/if}
+	</section>
+</main>
 
 <style>
+	main {
+		height: 100%;
+		display: grid;
+		grid-template-columns: 1fr;
+		grid-template-rows: min-content minmax(0, 1fr) min-content;
+		grid-template-areas:
+			'header'
+			'media'
+			'buttons';
+		justify-items: center;
+		align-items: start;
+	}
 	h1 {
+		grid-area: header;
 		text-align: center;
-
 		line-height: 2em;
 	}
 	#videoContainer {
 		position: relative;
+		grid-area: media;
+		align-self: center;
+	}
+
+	#buttons {
+		grid-area: buttons;
+		justify-self: stretch;
+		align-self: end;
+		height: 6rem;
+	}
+
+	@media (orientation: landscape) {
+		main {
+			grid-template-columns: 1fr 1fr;
+			/* grid-template-columns: auto minmax(15rem, 0.5fr); */
+			grid-template-rows: 1fr 1fr;
+			grid-template-areas:
+				'media header'
+				'media buttons';
+		}
+		#videoContainer {
+			align-self: center;
+		}
 	}
 </style>

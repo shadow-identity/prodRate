@@ -15,11 +15,21 @@
 		* {
 			margin: 0;
 		}
+
+		html {
+			box-sizing: border-box;
+			height: -webkit-fill-available;
+			overflow: hidden;
+		}
+
+		body {
+			height: -webkit-fill-available;
+		}
 	</style>
 </head>
 
 <body>
-	<div>%sveltekit.body%</div>
+	<div style="height: 100%">%sveltekit.body%</div>
 </body>
 
 </html>

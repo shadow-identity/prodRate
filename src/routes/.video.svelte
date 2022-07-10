@@ -82,6 +82,12 @@
 	#videoElement {
 		object-fit: contain;
 		object-position: left top;
-		border: 1px solid orange;
+		width: 100%;
+		height: 100%;
+	}
+	@media (orientation: landscape) {
+		#videoElement {
+			object-position: left center;
+		}
 	}
 </style>

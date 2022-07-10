@@ -2,7 +2,7 @@ import { build, files, prerendered, version } from '$service-worker'
 
 declare const self: ServiceWorkerGlobalScope
 
-const cacheName = 'appCache'
+const cacheName = `appCache-${version}`
 
 console.log('Service worker file loaded')
 
