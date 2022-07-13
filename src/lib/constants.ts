@@ -1,0 +1,1 @@
+export const CONSENT_ID = ';jlsdaf;jlfadsl;dfsaljk'

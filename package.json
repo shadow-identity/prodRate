@@ -21,6 +21,7 @@
 		"@smui/common": "^6.0.0-beta.16",
 		"@smui/fab": "^6.0.0-beta.16",
 		"@smui/icon-button": "^6.0.0-beta.16",
+		"@smui/paper": "^6.0.0-beta.16",
 		"@sveltejs/adapter-auto": "next",
 		"@sveltejs/adapter-static": "next",
 		"@sveltejs/kit": "next",
