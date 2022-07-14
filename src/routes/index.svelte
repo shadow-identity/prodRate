@@ -4,12 +4,15 @@
 	import Landing from './.landing.svelte'
 	import { CONSENT_ID } from '$lib/constants'
 	import { get } from 'idb-keyval'
+
+	let consent: boolean | undefined = false
+	browser && (async () => (consent = await get(CONSENT_ID)))()
+
+	const gotConsent = () => (consent = true)
 </script>
 
-{#await browser && get(CONSENT_ID) then consent}
-	{#if consent}
-		<App />
-	{:else}
-		<Landing />
-	{/if}
-{/await}
+{#if consent === true}
+	<App />
+{:else if consent === undefined}
+	<Landing on:gotConsent={gotConsent} />
+{/if}

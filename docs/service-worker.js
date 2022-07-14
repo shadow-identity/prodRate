@@ -1,13 +1,13 @@
 const build = [
-  "/prodRate/_app/immutable/start-61004b8f.js",
-  "/prodRate/_app/immutable/layout.svelte-6bb86db1.js",
-  "/prodRate/_app/immutable/error.svelte-9fa76fba.js",
-  "/prodRate/_app/immutable/pages/index.svelte-5242f5e4.js",
+  "/prodRate/_app/immutable/start-4457dc2c.js",
+  "/prodRate/_app/immutable/layout.svelte-102f0e3a.js",
+  "/prodRate/_app/immutable/error.svelte-0959e24c.js",
+  "/prodRate/_app/immutable/pages/index.svelte-13bdfd1b.js",
   "/prodRate/_app/immutable/assets/pages/index.svelte-5f510dff.css",
-  "/prodRate/_app/immutable/chunks/index-1cae598c.js",
-  "/prodRate/_app/immutable/chunks/index-c24b0d3e.js"
+  "/prodRate/_app/immutable/chunks/index-42b81ed8.js",
+  "/prodRate/_app/immutable/chunks/index-83b2db56.js"
 ];
-const version = "1657756139316";
+const version = "1657757539024";
 const cacheName = `appCache-${version}`;
 console.log("Service worker file loaded");
 self.addEventListener("install", (event) => {
