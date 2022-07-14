@@ -5,7 +5,15 @@
 	import Paper, { Title, Subtitle, Content } from '@smui/paper'
 	import { Label } from '@smui/common'
 	import { set } from 'idb-keyval'
+	import { createEventDispatcher } from 'svelte'
+
 	if (browser) document.title = 'Your Personal Product Rating'
+
+	const apply = () => {
+		browser && set(CONSENT_ID, true)
+		dispatch('gotConsent')
+	}
+	const dispatch = createEventDispatcher<{ gotConsent: undefined }>()
 </script>
 
 <div class="container">
@@ -34,12 +42,7 @@
 				For questions and suggestions, please write to me at pavel.nedr@gmail.com or on
 				<a href="https://github.com/shadow-identity/prodRate">Github</a>.
 			</p>
-			<Button
-				variant="raised"
-				on:click={() => {
-					browser && set(CONSENT_ID, true)
-				}}
-			>
+			<Button variant="raised" on:click={apply}>
 				<Label>Continue</Label>
 			</Button>
 		</Content>
