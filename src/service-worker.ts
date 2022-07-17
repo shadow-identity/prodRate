@@ -37,9 +37,12 @@ const deleteCache = async (key: string) => {
 const deleteOldCaches = async () => {
 	const keyList = await caches.keys()
 	const cachesToDelete = keyList.filter(key => key !== cacheName)
+	console.log('[Service Worker] Deleting old caches:', cachesToDelete)
 	await Promise.all(cachesToDelete.map(deleteCache))
 }
 
 self.addEventListener('activate', (event) => {
+	console.log('[Service Worker] Activate')
 	event.waitUntil(deleteOldCaches())
+	console.log('[Service Worker] Activate finished.')
 })
