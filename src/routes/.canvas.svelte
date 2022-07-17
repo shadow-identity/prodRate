@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { Barcode, Coords, DetectedBarcode } from '$lib/types'
 	import { barcodes } from '$lib/stores'
-	import { browser } from '$app/env'
+	import { dev } from '$app/env'
 
 	export let width: number
 	export let height: number
@@ -80,13 +80,22 @@
 	}
 </script>
 
-<canvas id="canvasElement" {width} {height} bind:this={canvasElement} />
+<canvas
+	id="canvasElement"
+	{width}
+	{height}
+	bind:this={canvasElement}
+	class={dev ? 'bordered' : ''}
+/>
 
 <style>
 	#canvasElement {
 		position: absolute;
 		top: 0;
 		left: 0;
+	}
+
+	.bordered {
 		border: 1px solid red;
 	}
 </style>

@@ -1,13 +1,13 @@
 const build = [
-  "/prodRate/_app/immutable/start-33448699.js",
-  "/prodRate/_app/immutable/layout.svelte-13770077.js",
-  "/prodRate/_app/immutable/error.svelte-feeb60cc.js",
-  "/prodRate/_app/immutable/pages/index.svelte-782eb159.js",
-  "/prodRate/_app/immutable/assets/pages/index.svelte-9d028066.css",
-  "/prodRate/_app/immutable/chunks/index-d7b40609.js",
-  "/prodRate/_app/immutable/chunks/index-1656b84f.js"
+  "/prodRate/_app/immutable/start-530522f7.js",
+  "/prodRate/_app/immutable/layout.svelte-4904d21a.js",
+  "/prodRate/_app/immutable/error.svelte-6e11c84c.js",
+  "/prodRate/_app/immutable/pages/index.svelte-efc03e06.js",
+  "/prodRate/_app/immutable/assets/pages/index.svelte-4d66e9db.css",
+  "/prodRate/_app/immutable/chunks/index-3b6c342b.js",
+  "/prodRate/_app/immutable/chunks/index-b0107bd2.js"
 ];
-const version = "1658098755936";
+const version = "1658100479181";
 const cacheName = `appCache-${version}`;
 console.log("Service worker file loaded");
 self.addEventListener("install", (event) => {
@@ -37,8 +37,11 @@ const deleteCache = async (key) => {
 const deleteOldCaches = async () => {
   const keyList = await caches.keys();
   const cachesToDelete = keyList.filter((key) => key !== cacheName);
+  console.log("[Service Worker] Deleting old caches:", cachesToDelete);
   await Promise.all(cachesToDelete.map(deleteCache));
 };
 self.addEventListener("activate", (event) => {
+  console.log("[Service Worker] Activate");
   event.waitUntil(deleteOldCaches());
+  console.log("[Service Worker] Activate finished.");
 });
