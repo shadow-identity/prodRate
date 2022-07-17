@@ -4,6 +4,7 @@
 	import Buttons from './.buttons.svelte'
 	import Video from './.video.svelte'
 	import Canvas from './.canvas.svelte'
+	import AppBar from './.appBar.svelte'
 	import { browser, dev } from '$app/env'
 
 	if (browser) document.title = `${dev ? 'DEV ' : ''}Product Rate`
@@ -25,22 +26,24 @@
 	}
 </script>
 
-<main>
-	<h1>Scan a code!</h1>
-	<section id="videoContainer">
-		<Video bind:videoElement bind:refreshBarcodes on:videoReady={adjustDimensions} />
-		<Canvas bind:canvasElement width={canvasWidth} height={canvasHeight} />
-	</section>
+<div class="gridContainer">
+	<AppBar />
+	<main>
+		<section id="videoContainer">
+			<Video bind:videoElement bind:refreshBarcodes on:videoReady={adjustDimensions} />
+			<Canvas bind:canvasElement width={canvasWidth} height={canvasHeight} />
+		</section>
 
-	<section id="buttons">
-		{#if $selectedBarcode && $selectedBarcode.selected}
-			<Buttons on:refreshBarcodes={refreshBarcodes} />
-		{/if}
-	</section>
-</main>
+		<section id="buttons">
+			{#if $selectedBarcode && $selectedBarcode.selected}
+				<Buttons on:refreshBarcodes={refreshBarcodes} />
+			{/if}
+		</section>
+	</main>
+</div>
 
 <style>
-	main {
+	.gridContainer {
 		height: 100%;
 		display: grid;
 		grid-template-columns: 1fr;
@@ -52,7 +55,8 @@
 		justify-items: center;
 		align-items: start;
 	}
-	h1 {
+
+	header {
 		grid-area: header;
 		text-align: center;
 		line-height: 2em;
