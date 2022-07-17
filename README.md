@@ -1,38 +1,20 @@
-# create-svelte
+# prodRate
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+Simple client-side web app designed to remind the user whether he liked the purchased product last time or not.
 
-## Creating a project
+## Goals 
+It should be compatible with screen readers.
+The app is already green in Lighthouse but I want it to pass 100% of tests.
+It should work at least in latest Chrome, Edge, Firefox and Safari.
 
-If you're seeing this, you've probably already done this step. Congrats!
+## How it works
+The app is based on [SvelteKit](https://kit.svelte.dev/), and I use [Svelte Material UI](https://sveltematerialui.com/) as a UI library.
 
-```bash
-# create a new project in the current directory
-npm init svelte
+The app uses MediaDevices API to capture video stream from device's camera and BarcodeDetector API to search for barcodes in the stream. 
+Since the BarcodeDetector API is still experimental, this feature has a JS fallback.
+Scanned barcodes are outlined and highlighted with simple canvas drawing and user is asked if he like or dislike the corresponding item.
+The answer is stored in IndexedDB storage so if user scans the same barcode later, he will know his previous answer.
 
-# create a new project in my-app
-npm init svelte my-app
-```
+User can share or save all his answers, as well as upload prevously saved answers into his database.
 
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+Since the app is PWA ready, it can be installed.

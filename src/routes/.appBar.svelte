@@ -10,7 +10,7 @@
 	import List, { Item, Text, Graphic } from '@smui/list'
 	import { readAllBarcodes, writeAllBarcodes, type BarcodesDb } from '$lib/db'
 
-	type Json = { timestamp: number; barcodes: BarcodesDb }
+	type Json = { description: string; timestamp: number; barcodes: BarcodesDb }
 
 	let menu: MenuComponentDev
 	let snackbarDone: SnackbarComponentDev
@@ -21,7 +21,11 @@
 
 	const getFile = async () => {
 		const barcodes = await readAllBarcodes()
-		const content: Json = { timestamp: Date.now(), barcodes }
+		const content: Json = {
+			description: `All my saved barcodes. Open it in ${location.href}`,
+			timestamp: Date.now(),
+			barcodes,
+		}
 		const json = JSON.stringify(content, null, '  ')
 		return new File([json], 'barcodes.txt', { type: 'text/plain' })
 	}
@@ -35,7 +39,7 @@
 				await navigator.share({
 					files,
 					title: 'Share all barcodes',
-					text: 'All my saved barcodes',
+					text: `All my saved barcodes. Open it in ${location.href}`,
 				})
 				file = undefined
 				doneMessage = 'Shared successfully'
@@ -93,7 +97,7 @@
 <TopAppBar variant="static">
 	<Row>
 		<Section>
-			<Title>Scan a code!</Title>
+			<Title>ProdRate</Title>
 		</Section>
 		<Section align="end">
 			<div>

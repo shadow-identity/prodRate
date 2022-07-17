@@ -30,17 +30,16 @@
 				code and rate it. When you scan this barcode again, you will see your previous grade.
 			</p>
 			<p>
-				For quick access to the service from the home screen, you can use the install function
-				(depending on your browser).
-			</p>
-			<p>
 				This service stores all your data exclusively on your device. Unfortunately, this means that
-				data security is also your responsibility. I plan to make backup convenient. The service
-				uses your device's camera to scan barcodes. By continuing to use, you agree to this.
+				data security is also your responsibility. You can download and (or) share your data to not
+				loose it. The service uses camera to scan barcodes. By continuing to use, you agree to this.
 			</p>
 			<p>
-				For questions and suggestions, please write to me at pavel.nedr@gmail.com or on
-				<a href="https://github.com/shadow-identity/prodRate">Github</a>.
+				For questions and suggestions, please write to me at
+				<a href="mailto:pavel.nedr@gmail.com">pavel.nedr@gmail.com</a>
+				or on
+				<a href="https://github.com/shadow-identity/prodRate">Github</a>
+				.
 			</p>
 			<Button variant="raised" on:click={apply}>
 				<Label>Continue</Label>
