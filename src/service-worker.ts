@@ -29,3 +29,17 @@ self.addEventListener('fetch', (event) => {
 		return response
 	})())
 })
+
+const deleteCache = async (key: string) => {
+	await caches.delete(key)
+}
+
+const deleteOldCaches = async () => {
+	const keyList = await caches.keys()
+	const cachesToDelete = keyList.filter(key => key !== cacheName)
+	await Promise.all(cachesToDelete.map(deleteCache))
+}
+
+self.addEventListener('activate', (event) => {
+	event.waitUntil(deleteOldCaches())
+})
