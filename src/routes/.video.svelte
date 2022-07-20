@@ -1,8 +1,3 @@
-<script lang="ts" context="module">
-	const equals = (a: DetectedBarcode[], b: DetectedBarcode[]) =>
-		a.length === b.length && a.every((item, id) => item.rawValue === b[id].rawValue)
-</script>
-
 <script lang="ts">
 	import { browser, dev } from '$app/env'
 	import type { Barcode, DetectedBarcode } from '$lib/types'
@@ -11,6 +6,10 @@
 	import { BarcodeDetectorPolyfill } from '$lib/barcode-detector/barcode-detector'
 
 	export let videoElement: HTMLVideoElement | undefined = undefined
+	let stream: MediaStream
+	let initialized = false
+	let barcodeDetector =
+		'BarcodeDetector' in window ? new BarcodeDetector() : new BarcodeDetectorPolyfill()
 
 	let errorMessage: string
 	const dispatch = createEventDispatcher<{
@@ -18,70 +17,75 @@
 		videoReady: null
 	}>()
 
-	onMount(() => {
-		if (browser) refreshBarcodes()
-	})
+	const equals = (a: DetectedBarcode[], b: DetectedBarcode[]) =>
+		a.length === b.length && a.every((item, id) => item.rawValue === b[id].rawValue)
 
-	const getDetector = async () => {
-		if ('BarcodeDetector' in window) {
-			return new BarcodeDetector()
-		} else {
-			console.warn('ZXing BarcodeDetector')
-			return new BarcodeDetectorPolyfill()
-		}
-	}
-	const stopStream = (stream: MediaStream) =>
-		stream.getVideoTracks().forEach((track) => track.stop())
-
-	const handleVisibilityChange = (stream?: MediaStream) => {
-		document.visibilityState === 'visible' ? refreshBarcodes() : stopStream(stream!)
-	}
-	onDestroy(
-		() =>
-			browser && document.removeEventListener('visibilitychange', () => handleVisibilityChange())
-	)
-	const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
-	export let refreshBarcodes = async () => {
-		barcodes.reset()
+	const init = async () => {
 		if (!videoElement) return
 		try {
-			videoElement.onloadeddata = () => dispatch('videoReady')
-
-			const stream = await navigator.mediaDevices.getUserMedia({
+			stream = await navigator.mediaDevices.getUserMedia({
 				video: { facingMode: 'environment' },
 				audio: false,
 			})
-			document.addEventListener('visibilitychange', () => handleVisibilityChange(stream))
-			videoElement.srcObject = stream
-			await videoElement.play()
-
-			try {
-				const barcodeDetector = await getDetector()
-				let attempt = 0
-				let detectedBarcodes: DetectedBarcode[] = []
-				do {
-					const firstAttempt = (await barcodeDetector.detect(videoElement)) as DetectedBarcode[]
-					attempt++
-					await sleep(dev ? 500 : 50)
-					if (firstAttempt.length) {
-						const secondAttempt = (await barcodeDetector.detect(videoElement)) as DetectedBarcode[]
-						if (equals(firstAttempt, secondAttempt)) detectedBarcodes = firstAttempt
-					}
-					attempt > 500 && (await sleep(500))
-				} while (document.visibilityState === 'visible' && !detectedBarcodes.length)
-				videoElement.pause()
-				stopStream(stream)
-				$barcodes = detectedBarcodes as Barcode[]
-			} catch (error) {
-				errorMessage = "Your browser doesn't support Barcode Detector"
-				console.error(error)
-				stopStream(stream)
-			}
 		} catch (error: any) {
 			if (error.message && error.message.includes('Permission')) {
 				errorMessage = 'Permission to use a camera is required to scan a barcode.'
 			}
 			console.error(error)
+			throw error
+		}
+		videoElement.onloadeddata = () => dispatch('videoReady')
+		videoElement.srcObject = stream
+		await videoElement.play()
+		initialized = true
+	}
+
+	const cleanup = () => {
+		if (!initialized) return
+		stream.getVideoTracks().forEach((track) => track.stop())
+		initialized = false
+	}
+
+	onMount(async () => {
+		if (browser) {
+			document.addEventListener('visibilitychange', handleVisibilityChange)
+			refreshBarcodes()
+		}
+	})
+
+	onDestroy(() => {
+		document.removeEventListener('visibilitychange', handleVisibilityChange)
+		cleanup()
+	})
+
+	const handleVisibilityChange = () =>
+		document.visibilityState === 'visible' ? refreshBarcodes() : cleanup()
+
+	const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
+	export let refreshBarcodes = async () => {
+		if (!videoElement || document.visibilityState === 'hidden') return
+		if (!initialized || stream.active) await init()
+		barcodes.reset()
+		try {
+			let attempt = 0
+			let detectedBarcodes: DetectedBarcode[] = []
+			do {
+				const firstAttempt = (await barcodeDetector.detect(videoElement)) as DetectedBarcode[]
+				attempt++
+				await sleep(dev ? 500 : 50)
+				if (firstAttempt.length) {
+					const secondAttempt = (await barcodeDetector.detect(videoElement)) as DetectedBarcode[]
+					if (equals(firstAttempt, secondAttempt)) detectedBarcodes = firstAttempt
+				}
+				attempt > 500 && (await sleep(500))
+			} while (document.visibilityState === 'visible' && !detectedBarcodes.length)
+			videoElement?.pause()
+			$barcodes = detectedBarcodes as Barcode[]
+		} catch (error) {
+			errorMessage = "Your browser doesn't support Barcode Detector"
+			console.error(error)
+		} finally {
+			cleanup()
 		}
 	}
 </script>

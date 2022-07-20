@@ -43,7 +43,6 @@ export default class BarcodeDetectorZXing {
 		const hints = new Map([
 			[ZXing.DecodeHintType.POSSIBLE_FORMATS, formats.map(format => mapFormat.get(format))]
 		])
-		console.log(hints)
 		this.reader = new ZXing.BrowserMultiFormatReader(hints)
 	}
 

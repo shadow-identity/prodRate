@@ -10,7 +10,7 @@ declare namespace App {
 	// interface Stuff {}
 }
 
-declare class BarcodeDetector {
-	detect: (imageBitmapSource: HTMLVideoElement) => Promise<import('$lib/types').DetectedBarcode[]>
-	getSupportedFormats: () => Promise<string[]>
+declare class BarcodeDetector extends BarcodeDetectorPolyfill {
+	getSupportedFormats: typeof BarcodeDetectorPolyfill.getSupportedFormats
+	detect: typeof BarcodeDetectorPolyfill.detect
 }
