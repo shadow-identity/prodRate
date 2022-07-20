@@ -53,7 +53,7 @@
 
 	$: {
 		const ctx = canvasElement?.getContext('2d')
-		if (ctx && $barcodes.length) {
+		if (ctx) {
 			ctx.clearRect(0, 0, width, height)
 			$barcodes.forEach((barcode) => {
 				const detectedShape = new Path2D()

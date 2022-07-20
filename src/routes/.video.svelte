@@ -42,7 +42,7 @@
 
 	const cleanup = () => {
 		if (!initialized) return
-		stream.getVideoTracks().forEach((track) => track.stop())
+		stream?.getVideoTracks().forEach((track) => track.stop())
 		initialized = false
 	}
 
@@ -67,19 +67,22 @@
 		if (!initialized || stream.active) await init()
 		barcodes.reset()
 		try {
-			let attempt = 0
 			let detectedBarcodes: DetectedBarcode[] = []
+
 			do {
 				const firstAttempt = (await barcodeDetector.detect(videoElement)) as DetectedBarcode[]
-				attempt++
 				await sleep(dev ? 500 : 50)
 				if (firstAttempt.length) {
+					videoElement?.pause()
 					const secondAttempt = (await barcodeDetector.detect(videoElement)) as DetectedBarcode[]
-					if (equals(firstAttempt, secondAttempt)) detectedBarcodes = firstAttempt
+					if (equals(firstAttempt, secondAttempt)) {
+						detectedBarcodes = secondAttempt
+					} else {
+						videoElement.play()
+					}
 				}
-				attempt > 500 && (await sleep(500))
 			} while (document.visibilityState === 'visible' && !detectedBarcodes.length)
-			videoElement?.pause()
+
 			$barcodes = detectedBarcodes as Barcode[]
 		} catch (error) {
 			errorMessage = "Your browser doesn't support Barcode Detector"
