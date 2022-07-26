@@ -29,14 +29,13 @@
 <div class="gridContainer">
 	<AppBar />
 	<main>
-		<section id="videoContainer">
+		<section id="mediaContainer">
 			<Video bind:videoElement bind:refreshBarcodes on:videoReady={adjustDimensions} />
-			<Canvas bind:canvasElement width={canvasWidth} height={canvasHeight} />
-		</section>
-
-		<section id="buttons">
+			<Canvas bind:canvasElement {videoElement} width={canvasWidth} height={canvasHeight} />
 			{#if $selectedBarcode && $selectedBarcode.selected}
-				<Buttons on:refreshBarcodes={refreshBarcodes} />
+				<section id="buttons" style:top={`${$selectedBarcode.boundingBox.bottom}px`}>
+					<Buttons on:refreshBarcodes={refreshBarcodes} />
+				</section>
 			{/if}
 		</section>
 	</main>
@@ -56,21 +55,19 @@
 		align-items: start;
 	}
 
-	header {
-		grid-area: header;
-		text-align: center;
-		line-height: 2em;
-	}
-	#videoContainer {
+	#mediaContainer {
 		position: relative;
 		grid-area: media;
 		align-self: center;
 	}
 
 	#buttons {
-		grid-area: buttons;
+		/* height: 100%; */
+		width: 100%;
+		position: absolute;
+		/* grid-area: buttons;
 		justify-self: stretch;
-		align-self: end;
+		align-self: end; */
 		height: 6rem;
 	}
 

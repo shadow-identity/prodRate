@@ -25,14 +25,14 @@
 		</Subtitle>
 		<Content>
 			<p>
-				I - more than once, and every time it's frustrating. In order not to fall into this trap, I
-				created this service. If you did not like (or like) the purchased product, just scan its
-				code and rate it. When you scan this barcode again, you will see your previous grade.
+				I - more than once, and every time it's frustrating. This service helps you not to fall into
+				this trap. If you don't like (or like) the purchased product, just scan its barcode and rate
+				it. When you scan this barcode again, you will see your previous rate.
 			</p>
 			<p>
-				This service stores all your data exclusively on your device. Unfortunately, this means that
-				data security is also your responsibility. You can download and (or) share your data to not
-				loose it. The service uses camera to scan barcodes. By continuing to use, you agree to this.
+				This service stores all your data exclusively on your device. You can download and (or)
+				share your data to not loose it. The service uses camera to scan barcodes. By continuing to
+				use, you agree to this.
 			</p>
 			<p>
 				For questions and suggestions, please write to me at
