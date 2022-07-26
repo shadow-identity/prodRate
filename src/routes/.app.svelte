@@ -31,7 +31,7 @@
 	<main>
 		<section id="mediaContainer">
 			<Video bind:videoElement bind:refreshBarcodes on:videoReady={adjustDimensions} />
-			<Canvas bind:canvasElement {videoElement} width={canvasWidth} height={canvasHeight} />
+			<Canvas bind:canvasElement width={canvasWidth} height={canvasHeight} />
 			{#if $selectedBarcode && $selectedBarcode.selected}
 				<section id="buttons" style:top={`${$selectedBarcode.boundingBox.bottom}px`}>
 					<Buttons on:refreshBarcodes={refreshBarcodes} />
@@ -80,7 +80,7 @@
 				'media header'
 				'media buttons';
 		}
-		#videoContainer {
+		#mediaContainer {
 			align-self: center;
 		}
 	}
