@@ -25,7 +25,7 @@
 		</Subtitle>
 		<Content>
 			<p>
-				I - more than once, and every time it's frustrating. This service helps you not to fall into
+				I — more than once, and every time it's frustrating. This service helps you not to fall into
 				this trap. If you don't like (or like) the purchased product, just scan its barcode and rate
 				it. When you scan this barcode again, you will see your previous rate.
 			</p>
@@ -38,8 +38,7 @@
 				For questions and suggestions, please write to me at
 				<a href="mailto:pavel.nedr@gmail.com">pavel.nedr@gmail.com</a>
 				or on
-				<a href="https://github.com/shadow-identity/prodRate">Github</a>
-				.
+				<a href="https://github.com/shadow-identity/prodRate">Github</a>.
 			</p>
 			<Button variant="raised" on:click={apply}>
 				<Label>Continue</Label>

@@ -2,7 +2,7 @@
 	import { browser, dev } from '$app/env'
 	import type { Barcode, DetectedBarcode } from '$lib/types'
 	import { createEventDispatcher, onDestroy, onMount } from 'svelte'
-	import { barcodes } from '$lib/stores'
+	import { barcodes, errorStore } from '$lib/stores'
 	import { BarcodeDetectorPolyfill } from '$lib/barcode-detector/barcode-detector'
 
 	export let videoElement: HTMLVideoElement | undefined = undefined
@@ -11,7 +11,6 @@
 	let barcodeDetector =
 		'BarcodeDetector' in window ? new BarcodeDetector() : new BarcodeDetectorPolyfill()
 
-	let errorMessage: string
 	const dispatch = createEventDispatcher<{
 		barcodesDetected: Barcode[]
 		videoReady: null
@@ -28,10 +27,7 @@
 				audio: false,
 			})
 		} catch (error: any) {
-			if (error.message && error.message.includes('Permission')) {
-				errorMessage = 'Permission to use a camera is required to scan a barcode.'
-			}
-			console.error(error)
+			$errorStore = error.stack ? error : new Error(error)
 			throw error
 		}
 		videoElement.onloadeddata = () => dispatch('videoReady')
@@ -84,25 +80,19 @@
 			} while (document.visibilityState === 'visible' && !detectedBarcodes.length)
 
 			$barcodes = detectedBarcodes as Barcode[]
-		} catch (error) {
-			errorMessage = "Your browser doesn't support Barcode Detector"
-			console.error(error)
+		} catch (error: any) {
+			$errorStore = error.stack ? error : new Error(error)
+			throw error
 		} finally {
 			cleanup()
 		}
 	}
 </script>
 
-{#if errorMessage}
-	<strong>
-		{errorMessage}
-	</strong>
-{:else}
-	<!-- svelte-ignore a11y-media-has-caption -->
-	<video id="videoElement" bind:this={videoElement}>
-		Your browser doesn't support Barcode Detector
-	</video>
-{/if}
+<!-- svelte-ignore a11y-media-has-caption -->
+<video id="videoElement" bind:this={videoElement}>
+	Your browser doesn't support Barcode Detector
+</video>
 
 <style>
 	#videoElement {

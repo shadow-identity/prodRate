@@ -18,6 +18,6 @@ module.exports = {
 		node: true
 	},
 	rules: {
-		dotLocation: 'property',
+		dotLocation: ['error', 'property'],
 	}
 }

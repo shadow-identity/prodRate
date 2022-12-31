@@ -14,13 +14,12 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<link rel="manifest" href="/prodRate/prodRate.webmanifest">
 	<meta http-equiv="content-security-policy" content="">
-	<link rel="stylesheet" href="/prodRate/_app/immutable/assets/pages/index.svelte-18b78bed.css">
 	<link rel="modulepreload" href="/prodRate/_app/immutable/start-5b80c306.js">
 	<link rel="modulepreload" href="/prodRate/_app/immutable/chunks/index-7e0ae005.js">
 	<link rel="modulepreload" href="/prodRate/_app/immutable/chunks/index-1f10bfe4.js">
 	<link rel="modulepreload" href="/prodRate/_app/immutable/chunks/singletons-d1fb5791.js">
 	<link rel="modulepreload" href="/prodRate/_app/immutable/layout.svelte-fefadf43.js">
-	<link rel="modulepreload" href="/prodRate/_app/immutable/pages/index.svelte-3ef28ce8.js">
+	<link rel="modulepreload" href="/prodRate/_app/immutable/pages/about.svelte-f3cbf374.js">
 	<link rel="modulepreload" href="/prodRate/_app/immutable/chunks/navigation-b1dd50a3.js">
 			<script>
 		if ('serviceWorker' in navigator) {
@@ -49,13 +48,31 @@
 	<div style="height: 100%">
 
 
+<div class="mdc-card"><div class="smui-card__content"><h3>How to use</h3>
+		<ol><li>Accept camera usage if asked.</li>
+			<li>Point camera on a barcode of a product.</li>
+			<li>In case of successfull code recognition, the camera image will be paused and three buttons
+				will appear.
+			</li>
+			<li>If you scan the barcode for the first time, all the buttons will have the same style.
+				Otherwise you&#39;ll see the like or dislike button colored depending on your previous rate.
+				Barcode will be also colored.
+			</li>
+			<li>To set or update your rate you can press one of the rate buttons. To scan a next barcode
+				press the Refresh button.
+			</li></ol>
+</div>
+	<div class="mdc-card__actions"><div class="mdc-card__action-buttons"><button class="mdc-button mdc-card__action mdc-card__action--button" style=""><div class="mdc-button__ripple"></div>
+  <span class="mdc-button__label">Let&#39;s scan!</span></button>
+</div>
+</div>
+</div>
 
 
-
-		<script type="module" data-sveltekit-hydrate="2eq20f">
+		<script type="module" data-sveltekit-hydrate="xicb1a">
 		import { start } from "/prodRate/_app/immutable/start-5b80c306.js";
 		start({
-			target: document.querySelector('[data-sveltekit-hydrate="2eq20f"]').parentNode,
+			target: document.querySelector('[data-sveltekit-hydrate="xicb1a"]').parentNode,
 			paths: {"base":"/prodRate","assets":"/prodRate"},
 			session: {},
 			route: true,
@@ -64,9 +81,9 @@
 			hydrate: {
 				status: 200,
 				error: null,
-				nodes: [0, 3],
+				nodes: [0, 2],
 				params: {},
-				routeId: ""
+				routeId: "about"
 			}
 		});
 	</script></div>

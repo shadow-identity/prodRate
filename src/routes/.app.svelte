@@ -1,10 +1,11 @@
 <script lang="ts">
-	import { selectedBarcode } from '$lib/stores'
+	import { errorStore, selectedBarcode } from '$lib/stores'
 
 	import Buttons from './.buttons.svelte'
 	import Video from './.video.svelte'
 	import Canvas from './.canvas.svelte'
 	import AppBar from './.appBar.svelte'
+	import ErrorCard from './.errorCard.svelte'
 	import { browser, dev } from '$app/env'
 
 	if (browser) document.title = `${dev ? 'DEV ' : ''}Product Rate`
@@ -17,28 +18,36 @@
 	let videoElement: HTMLVideoElement
 
 	const adjustDimensions = () => {
-		const width = videoElement.clientWidth
-		const height = videoElement.clientHeight
-		canvasWidth = videoElement.clientWidth
-		canvasHeight = videoElement.clientHeight
-		canvasElement.width = width || 0
-		canvasElement.height = height || 0
+		try {
+			const width = videoElement.clientWidth
+			const height = videoElement.clientHeight
+			canvasWidth = videoElement.clientWidth
+			canvasHeight = videoElement.clientHeight
+			canvasElement.width = width || 0
+			canvasElement.height = height || 0
+		} catch (error: any) {
+			$errorStore = error.stack ? error : new Error(error)
+		}
 	}
 </script>
 
 <div class="gridContainer">
-	<AppBar />
-	<main>
-		<section id="mediaContainer">
-			<Video bind:videoElement bind:refreshBarcodes on:videoReady={adjustDimensions} />
-			<Canvas bind:canvasElement width={canvasWidth} height={canvasHeight} />
-			{#if $selectedBarcode && $selectedBarcode.selected}
-				<section id="buttons" style:top={`${$selectedBarcode.boundingBox.bottom}px`}>
-					<Buttons on:refreshBarcodes={refreshBarcodes} />
-				</section>
-			{/if}
-		</section>
-	</main>
+	{#if $errorStore}
+		<ErrorCard />
+	{:else}
+		<AppBar />
+		<main>
+			<section id="mediaContainer">
+				<Video bind:videoElement bind:refreshBarcodes on:videoReady={adjustDimensions} />
+				<Canvas bind:canvasElement width={canvasWidth} height={canvasHeight} />
+				{#if $selectedBarcode && $selectedBarcode.selected}
+					<section id="buttons" style:top={`${$selectedBarcode.boundingBox.bottom}px`}>
+						<Buttons on:refreshBarcodes={refreshBarcodes} />
+					</section>
+				{/if}
+			</section>
+		</main>
+	{/if}
 </div>
 
 <style>

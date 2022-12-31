@@ -8,4 +8,3 @@ export type DetectedBarcode = {
 }
 
 export type Barcode = DetectedBarcode & { preference: Preference, selected: boolean }
-

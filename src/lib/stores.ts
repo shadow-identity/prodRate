@@ -65,3 +65,5 @@ const createSelectedBarcode = () => {
 }
 
 export const selectedBarcode = createSelectedBarcode()
+
+export const errorStore = writable<Error | undefined>()

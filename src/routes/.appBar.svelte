@@ -5,10 +5,11 @@
 	import type { SnackbarComponentDev } from '@smui/snackbar'
 	import TopAppBar, { Row, Section, Title } from '@smui/top-app-bar'
 	import IconButton from '@smui/icon-button'
-
 	import Button, { Label } from '@smui/button'
-	import List, { Item, Text, Graphic } from '@smui/list'
+	import List, { Item, Text, Graphic, Separator } from '@smui/list'
 	import { readAllBarcodes, writeAllBarcodes, type BarcodesDb } from '$lib/db'
+	import { goto } from '$app/navigation'
+	import { EMAIL } from '$lib/constants'
 
 	type Json = { description: string; timestamp: number; barcodes: BarcodesDb }
 
@@ -56,7 +57,7 @@
 		a.download = 'barcodes.txt'
 		a.click()
 		file = undefined
-		doneMessage = 'Saved successfully'
+		doneMessage = 'Exported successfully'
 		snackbarDone.open()
 	}
 
@@ -78,7 +79,7 @@
 						const fileContent = reader.result as string
 						const json: Json = JSON.parse(fileContent)
 						await writeAllBarcodes(json.barcodes)
-						doneMessage = 'Uploaded successfully'
+						doneMessage = 'Imported successfully'
 						snackbarDone.open()
 					} catch (error) {
 						console.error(error)
@@ -107,28 +108,36 @@
 				<Menu variant="modal" fixed={false} bind:this={menu} anchorCorner="BOTTOM_LEFT">
 					<List>
 						{#if !!navigator.canShare}
-							<Item href="javascript:void(0)" on:SMUI:action={share}>
+							<Item on:SMUI:action={share}>
 								<Graphic class="material-icons" aria-hidden="true">share</Graphic>
-								<Text>Share all data</Text>
+								<Text>Share all barcodes</Text>
 							</Item>
 						{/if}
-						<Item href="javascript:void(0)" on:SMUI:action={save}>
+						<Item on:SMUI:action={save}>
 							<Graphic class="material-icons" aria-hidden="true">file_download</Graphic>
-							<Text>Save as file</Text>
+							<Text>Export barcodes</Text>
 						</Item>
-						<Item href="javascript:void(0)" on:SMUI:action={upload}>
-							<Graphic class="material-icons" aria-hidden="true">upload_file</Graphic>
-							<Text>Upload saved barcodes</Text>
+						<Item on:SMUI:action={upload}>
+							<Graphic class="material-icons" aria-hidden="true">file_upload</Graphic>
+							<Text>Import saved barcodes</Text>
 						</Item>
-
-						<!--
 						<Separator />
-						<Subheader component={H6}>Labels</Subheader>
-						<Item href="javascript:void(0)" on:click={() => {}}>
+						<Item
+							on:SMUI:action={() => {
+								window.open(`mailto:${EMAIL}?subject=Feedback`)
+							}}
+						>
 							<Graphic class="material-icons" aria-hidden="true">feedback</Graphic>
 							<Text>Feedback</Text>
 						</Item>
-						-->
+						<Item
+							on:SMUI:action={() => {
+								goto('about')
+							}}
+						>
+							<Graphic class="material-icons" aria-hidden="true">help</Graphic>
+							<Text>About</Text>
+						</Item>
 					</List>
 				</Menu>
 			</div>
@@ -138,17 +147,18 @@
 
 <Snackbar bind:this={snackbarSharingError} variant="stacked">
 	<Label>
-		Something went wrong during sharing. You can save your barcodes on your device instead.
+		Something went wrong during sharing. You can export your barcodes to a file on your device
+		instead.
 	</Label>
 	<Actions>
-		<Button on:click={() => save()}>Save</Button>
+		<Button on:click={save}>Export</Button>
 	</Actions>
 </Snackbar>
 
 <Snackbar bind:this={snackbarUploadError}>
 	<Label>Wrong file format</Label>
 	<Actions>
-		<Button on:click={() => upload()}>Try again</Button>
+		<Button on:click={upload}>Try again</Button>
 	</Actions>
 </Snackbar>
 
