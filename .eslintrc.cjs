@@ -17,7 +17,4 @@ module.exports = {
 		es2017: true,
 		node: true
 	},
-	rules: {
-		dotLocation: ['error', 'property'],
-	}
 }

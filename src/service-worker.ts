@@ -1,4 +1,4 @@
-import { build, files, prerendered, version } from '$service-worker'
+import { build, version } from '$service-worker'
 
 declare const self: ServiceWorkerGlobalScope
 

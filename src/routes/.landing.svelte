@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { browser } from '$app/env'
+	import { browser } from '$app/environment'
 	import { CONSENT_ID } from '$lib/constants'
 	import Button from '@smui/button'
 	import Paper, { Title, Subtitle, Content } from '@smui/paper'

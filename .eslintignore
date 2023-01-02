@@ -3,6 +3,8 @@ node_modules
 /build
 /.svelte-kit
 /package
+/docs
+/src/lib/barcode-detector
 .env
 .env.*
 !.env.example

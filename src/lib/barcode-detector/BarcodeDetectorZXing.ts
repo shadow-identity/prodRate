@@ -102,7 +102,9 @@ export default class BarcodeDetectorZXing {
 		return {
 			boundingBox: boundingBox,
 			rawValue: result.getText(),
+			// @ts-ignore
 			format: mapFormatInv.get(result.getBarcodeFormat()),
+			// @ts-ignore
 			cornerPoints
 		}
 	}

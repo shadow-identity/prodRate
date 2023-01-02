@@ -6,7 +6,7 @@
 	import Canvas from './.canvas.svelte'
 	import AppBar from './.appBar.svelte'
 	import ErrorCard from './.errorCard.svelte'
-	import { browser, dev } from '$app/env'
+	import { browser, dev } from '$app/environment'
 
 	if (browser) document.title = `${dev ? 'DEV ' : ''}Product Rate`
 

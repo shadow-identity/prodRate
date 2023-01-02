@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { Barcode, Coords, DetectedBarcode } from '$lib/types'
 	import { barcodes } from '$lib/stores'
-	import { dev } from '$app/env'
+	import { dev } from '$app/environment'
 
 	export let width: number
 	export let height: number

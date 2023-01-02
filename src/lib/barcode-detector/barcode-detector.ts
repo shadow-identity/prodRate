@@ -1,6 +1,6 @@
 // Modified copy of https://github.com/xulihang/barcode-detector-polyfill (building was not working with the original package)
 import BarcodeDetectorZXing from './BarcodeDetectorZXing'
-import type { BarcodeDetectorOptions, BarcodeFormat, DetectedBarcode, Point2D } from './Definitions'
+import type { BarcodeDetectorOptions, BarcodeFormat, DetectedBarcode } from './Definitions'
 
 export * from './BarcodeDetectorZXing'
 export * from './Definitions'

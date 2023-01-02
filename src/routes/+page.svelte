@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { browser } from '$app/env'
+	import { browser } from '$app/environment'
 	import App from './.app.svelte'
 	import Landing from './.landing.svelte'
 	import { CONSENT_ID } from '$lib/constants'

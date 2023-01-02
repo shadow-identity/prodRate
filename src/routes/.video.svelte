@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { browser, dev } from '$app/env'
+	import { browser, dev } from '$app/environment'
 	import type { Barcode, DetectedBarcode } from '$lib/types'
 	import { createEventDispatcher, onDestroy, onMount } from 'svelte'
 	import { barcodes, errorStore } from '$lib/stores'

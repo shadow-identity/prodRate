@@ -5,30 +5,31 @@
 	<meta charset="utf-8" />
 	<meta name="description" content="Product Rate app that shows you was you like or dont like a product before.">
 	<meta name="theme-color" content="#B12A34" />
-	<link rel="icon" href="/prodRate/icons/barcode_512.png" />
-	<link rel="apple-touch-icon" href="/prodRate/icons/barcode_192.png">
+	<link rel="icon" href="./icons/barcode_512.png" />
+	<link rel="apple-touch-icon" href="./icons/barcode_192.png">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,600,700" />
-	<link rel="stylesheet" href="/prodRate/smui.css" media="(prefers-color-scheme: light)" />
-	<link rel="stylesheet" href="/prodRate/smui-dark.css" media="screen and (prefers-color-scheme: dark)" />
+	<link rel="stylesheet" href="./smui.css" media="(prefers-color-scheme: light)" />
+	<link rel="stylesheet" href="./smui-dark.css" media="screen and (prefers-color-scheme: dark)" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<link rel="manifest" href="/prodRate/prodRate.webmanifest">
+	<link rel="manifest" href="./prodRate.webmanifest">
 	<meta http-equiv="content-security-policy" content="">
-	<link rel="stylesheet" href="/prodRate/_app/immutable/assets/pages/index.svelte-18b78bed.css">
-	<link rel="modulepreload" href="/prodRate/_app/immutable/start-5b80c306.js">
-	<link rel="modulepreload" href="/prodRate/_app/immutable/chunks/index-7e0ae005.js">
-	<link rel="modulepreload" href="/prodRate/_app/immutable/chunks/index-1f10bfe4.js">
-	<link rel="modulepreload" href="/prodRate/_app/immutable/chunks/singletons-d1fb5791.js">
-	<link rel="modulepreload" href="/prodRate/_app/immutable/layout.svelte-fefadf43.js">
-	<link rel="modulepreload" href="/prodRate/_app/immutable/pages/index.svelte-3ef28ce8.js">
-	<link rel="modulepreload" href="/prodRate/_app/immutable/chunks/navigation-b1dd50a3.js">
-			<script>
-		if ('serviceWorker' in navigator) {
-			addEventListener('load', () => {
-				navigator.serviceWorker.register('/prodRate/service-worker.js');
-			});
-		}
-	</script>
+		<link href="./_app/immutable/assets/_page-3b2ce058.css" rel="stylesheet">
+		<link rel="modulepreload" href="./_app/immutable/start-f46f033c.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/index-5c856e6a.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/singletons-ff76c2a6.js">
+		<link rel="modulepreload" href="./_app/immutable/components/layout.svelte-c1025cb7.js">
+		<link rel="modulepreload" href="./_app/immutable/modules/pages/_layout.ts-9cbb603b.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/_layout-da46b06b.js">
+		<link rel="modulepreload" href="./_app/immutable/components/pages/_page.svelte-34d226ea.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/index-26e91fd6.js">
+		<script>
+			if ('serviceWorker' in navigator) {
+				addEventListener('load', function () {
+					navigator.serviceWorker.register('./service-worker.js');
+				});
+			}
+		</script>
 	<style>
 		* {
 			margin: 0;
@@ -53,23 +54,21 @@
 
 
 		<script type="module" data-sveltekit-hydrate="2eq20f">
-		import { start } from "/prodRate/_app/immutable/start-5b80c306.js";
-		start({
-			target: document.querySelector('[data-sveltekit-hydrate="2eq20f"]').parentNode,
-			paths: {"base":"/prodRate","assets":"/prodRate"},
-			session: {},
-			route: true,
-			spa: false,
-			trailing_slash: "never",
-			hydrate: {
-				status: 200,
-				error: null,
-				nodes: [0, 3],
-				params: {},
-				routeId: ""
-			}
-		});
-	</script></div>
+			import { start } from "./_app/immutable/start-f46f033c.js";
+
+			start({
+				env: {},
+				paths: {"base":"","assets":""},
+				target: document.querySelector('[data-sveltekit-hydrate="2eq20f"]').parentNode,
+				version: "1672622542689",
+				hydrate: {
+					node_ids: [0, 2],
+					data: [null,null],
+					form: null
+				}
+			});
+		</script>
+	</div>
 </body>
 
 </html>
