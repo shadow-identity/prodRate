@@ -1,7 +1,7 @@
 import { getMany, set as setKeyval } from "idb-keyval"
 import { derived, writable } from "svelte/store"
 
-import type { Barcode, DetectedBarcode, Preference } from "./types"
+import type { Barcode, DetectedBarcode, ErrorStore, Preference } from "./types"
 
 export const createBarcodes = () => {
 	const { subscribe, set, update, } = writable<Barcode[]>([])
@@ -66,4 +66,4 @@ const createSelectedBarcode = () => {
 
 export const selectedBarcode = createSelectedBarcode()
 
-export const errorStore = writable<Error | undefined>()
+export const errorStore = writable<ErrorStore>()

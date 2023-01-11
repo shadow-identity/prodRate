@@ -8,3 +8,8 @@ export type DetectedBarcode = {
 }
 
 export type Barcode = DetectedBarcode & { preference: Preference, selected: boolean }
+
+export type ErrorStore = {
+	errorObject: Error | undefined,
+	description: string,
+}

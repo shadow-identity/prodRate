@@ -27,7 +27,17 @@
 				audio: false,
 			})
 		} catch (error: any) {
-			$errorStore = error.stack ? error : new Error(error)
+			let description = ''
+			if (error?.name === 'NotFoundError')
+				description =
+					"Your devide doesn't have a camera or the camera is not supported by your browser."
+			else if (error.message.includes('Permission'))
+				description = 'Permission to use a camera is required to scan a barcode.'
+
+			$errorStore = {
+				description,
+				errorObject: error.stack ? error : new Error(error),
+			}
 			throw error
 		}
 		videoElement.onloadeddata = () => dispatch('videoReady')
