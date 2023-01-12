@@ -18,7 +18,7 @@
 
 <div class="container">
 	<Paper class="landing-paper">
-		<Title>Your Personal Product Rating</Title>
+		<Title>Barcode Monkey: Your Personal Product Rating</Title>
 		<Subtitle>
 			Have you ever purchased the wrong product just because you forgot it didn't work for you the
 			last time?

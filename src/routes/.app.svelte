@@ -8,7 +8,7 @@
 	import ErrorCard from './.errorCard.svelte'
 	import { browser, dev } from '$app/environment'
 
-	if (browser) document.title = `${dev ? 'DEV ' : ''}Product Rate`
+	if (browser) document.title = `${dev ? 'DEV ' : ''}Barcode Monkey`
 
 	let refreshBarcodes: () => Promise<void>
 

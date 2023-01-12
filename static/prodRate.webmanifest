@@ -1,7 +1,7 @@
 {
 	"name": "Your Personal Product Rate",
-	"short_name": "Product Rate",
-	"description": "Product Rate app that shows you was you like or dont like a product before.",
+	"short_name": "Barcode Monkey",
+	"description": "Barcode Monkey app that shows you was you like or dont like a product before.",
 	"icons": [
 		{
 			"src": "icons/barcode_32.png",
