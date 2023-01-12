@@ -1,6 +1,6 @@
 {
 	"name": "prodrate",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"scripts": {
 		"dev": "vite dev --https --host",
 		"build": "vite build",
@@ -50,7 +50,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@zxing/library": "^0.19.1",
+		"@undecaf/barcode-detector-polyfill": "^0.9.14",
 		"idb-keyval": "^6.2.0"
 	}
 }

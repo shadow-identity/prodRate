@@ -3,13 +3,11 @@
 	import type { Barcode, DetectedBarcode } from '$lib/types'
 	import { createEventDispatcher, onDestroy, onMount } from 'svelte'
 	import { barcodes, errorStore } from '$lib/stores'
-	import { BarcodeDetectorPolyfill } from '$lib/barcode-detector/barcode-detector'
 
 	export let videoElement: HTMLVideoElement | undefined = undefined
 	let stream: MediaStream
 	let initialized = false
-	let barcodeDetector =
-		'BarcodeDetector' in window ? new BarcodeDetector() : new BarcodeDetectorPolyfill()
+	let barcodeDetector: BarcodeDetector
 
 	const dispatch = createEventDispatcher<{
 		barcodesDetected: Barcode[]
@@ -40,6 +38,16 @@
 			}
 			throw error
 		}
+		try {
+			// 'BarcodeDetector' in window ? new BarcodeDetector() : new BarcodeDetectorPolyfill()
+			;(window as any)['BarcodeDetector'].getSupportedFormats()
+		} catch {
+			;(window as any)['BarcodeDetector'] = (
+				await import('@undecaf/barcode-detector-polyfill')
+			).BarcodeDetectorPolyfill
+		}
+		barcodeDetector = new BarcodeDetector()
+
 		videoElement.onloadeddata = () => dispatch('videoReady')
 		videoElement.srcObject = stream
 		await videoElement.play()

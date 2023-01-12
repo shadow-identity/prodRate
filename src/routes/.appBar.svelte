@@ -98,7 +98,7 @@
 <TopAppBar variant="static">
 	<Row>
 		<Section>
-			<Title>ProdRate</Title>
+			<Title>Barcode Monkey</Title>
 		</Section>
 		<Section align="end">
 			<div>

@@ -1,4 +1,4 @@
-# prodRate
+# prodRate aka Barcode Monkey
 
 Simple client-side web app designed to remind the user whether he liked the purchased product last time or not.
 
