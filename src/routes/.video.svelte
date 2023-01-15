@@ -17,8 +17,18 @@
 	const equals = (a: DetectedBarcode[], b: DetectedBarcode[]) =>
 		a.length === b.length && a.every((item, id) => item.rawValue === b[id].rawValue)
 
-	const init = async () => {
-		if (!videoElement) return
+	const init = async (isRetry: boolean = false) => {
+		if (!videoElement) {
+			if (isRetry) {
+				$errorStore = {
+					description: 'Error during initialization: videoELement is not ready',
+					errorObject: new Error(),
+				}
+			} else {
+				window.requestAnimationFrame(() => init(true))
+			}
+			return
+		}
 		try {
 			stream = await navigator.mediaDevices.getUserMedia({
 				video: { facingMode: 'environment' },
@@ -26,11 +36,12 @@
 			})
 		} catch (error: any) {
 			let description = ''
-			if (error?.name === 'NotFoundError')
+			if (error?.name === 'NotFoundError') {
 				description =
-					"Your devide doesn't have a camera or the camera is not supported by your browser."
-			else if (error.message.includes('Permission'))
+					"Your device doesn't have a camera or the camera is not supported by your browser."
+			} else if (error.message.includes('Permission')) {
 				description = 'Permission to use a camera is required to scan a barcode.'
+			}
 
 			$errorStore = {
 				description,
@@ -39,7 +50,6 @@
 			throw error
 		}
 		try {
-			// 'BarcodeDetector' in window ? new BarcodeDetector() : new BarcodeDetectorPolyfill()
 			;(window as any)['BarcodeDetector'].getSupportedFormats()
 		} catch {
 			;(window as any)['BarcodeDetector'] = (
@@ -48,14 +58,31 @@
 		}
 		barcodeDetector = new BarcodeDetector()
 
-		videoElement.onloadeddata = () => dispatch('videoReady')
-		videoElement.srcObject = stream
-		await videoElement.play()
+		try {
+			videoElement.onloadeddata = () => dispatch('videoReady')
+			videoElement.srcObject = stream
+			await videoElement.play()
+		} catch (error: any) {
+			$errorStore = {
+				description:
+					'Error during initialization: assignment a stream to a video element is falied.',
+				errorObject: error.stack ? error : new Error(error),
+			}
+		}
+		if (!stream.active) {
+			$errorStore = {
+				description: 'Error during initialization: video stream is not active.',
+				errorObject: new Error(),
+			}
+		}
 		initialized = true
+		refreshBarcodes()
 	}
 
 	const cleanup = () => {
-		if (!initialized) return
+		if (!initialized) {
+			return
+		}
 		stream?.getVideoTracks().forEach((track) => track.stop())
 		initialized = false
 	}
@@ -63,7 +90,7 @@
 	onMount(async () => {
 		if (browser) {
 			document.addEventListener('visibilitychange', handleVisibilityChange)
-			refreshBarcodes()
+			init()
 		}
 	})
 
@@ -72,13 +99,13 @@
 		cleanup()
 	})
 
-	const handleVisibilityChange = () =>
-		document.visibilityState === 'visible' ? refreshBarcodes() : cleanup()
+	const handleVisibilityChange = () => {
+		document.visibilityState === 'visible' ? init() : cleanup()
+	}
 
 	const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
+
 	export let refreshBarcodes = async () => {
-		if (!videoElement || document.visibilityState === 'hidden') return
-		if (!initialized || stream.active) await init()
 		barcodes.reset()
 		try {
 			let detectedBarcodes: DetectedBarcode[] = []
@@ -92,14 +119,17 @@
 					if (equals(firstAttempt, secondAttempt)) {
 						detectedBarcodes = secondAttempt
 					} else {
-						videoElement.play()
+						videoElement?.play()
 					}
 				}
-			} while (document.visibilityState === 'visible' && !detectedBarcodes.length)
+			} while (document.visibilityState === 'visible' && !detectedBarcodes.length && initialized)
 
 			$barcodes = detectedBarcodes as Barcode[]
 		} catch (error: any) {
-			$errorStore = error.stack ? error : new Error(error)
+			$errorStore = {
+				description: 'Barcode detection error.',
+				errorObject: error.stack ? error : new Error(error),
+			}
 			throw error
 		} finally {
 			cleanup()

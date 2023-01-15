@@ -6,6 +6,7 @@
 
 <Card>
 	<Content>
+		<h1>Barcode Monkey</h1>
 		<h3>How to use</h3>
 		<ol>
 			<li>Accept camera usage if asked.</li>
@@ -24,6 +25,20 @@
 				press the Refresh button.
 			</li>
 		</ol>
+		<h3>Links</h3>
+		<ul>
+			<li>
+				Project home with source and issue tracker:
+				<a href="https://github.com/shadow-identity/prodRate" target="_blank" rel="noreferrer">
+					github
+				</a>
+			</li>
+			<li>
+				The main application address:
+				<!-- svelte-ignore security-anchor-rel-noreferrer -->
+				<a href="https://barcodemonkey.app" target="_blank">barcodemonkey.app</a>
+			</li>
+		</ul>
 	</Content>
 	<Actions>
 		<ActionButtons>

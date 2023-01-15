@@ -1,6 +1,6 @@
 {
 	"name": "prodrate",
-	"version": "0.0.5",
+	"version": "0.0.6",
 	"scripts": {
 		"dev": "vite dev --https --host",
 		"build": "vite build",
