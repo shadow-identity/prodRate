@@ -1,9 +1,6 @@
 <script lang="ts">
 	import { browser } from '$app/environment'
 	import { CONSENT_ID } from '$lib/constants'
-	import Button from '@smui/button'
-	import Paper, { Title, Subtitle, Content } from '@smui/paper'
-	import { Label } from '@smui/common'
 	import { set } from 'idb-keyval'
 	import { createEventDispatcher } from 'svelte'
 
@@ -17,13 +14,13 @@
 </script>
 
 <div class="container">
-	<Paper class="landing-paper">
-		<Title>Barcode Monkey: Your Personal Product Rating</Title>
-		<Subtitle>
+	<article class="landing-paper">
+		<h2>Barcode Monkey: Your Personal Product Rating</h2>
+		<p>
 			Have you ever purchased the wrong product just because you forgot it didn't work for you the
 			last time?
-		</Subtitle>
-		<Content>
+		</p>
+		<section>
 			<p>
 				I — more than once, and every time it's frustrating. This service helps you not to fall into
 				this trap. If you don't like (or like) the purchased product, just scan its barcode and rate
@@ -40,15 +37,13 @@
 				or on
 				<a href="https://github.com/shadow-identity/prodRate">Github</a>.
 			</p>
-			<Button variant="raised" on:click={apply}>
-				<Label>Continue</Label>
-			</Button>
-		</Content>
-	</Paper>
+			<button on:click={apply}> Continue </button>
+		</section>
+	</article>
 </div>
 
 <style>
-	:global(.landing-paper) {
+	.landing-paper {
 		margin: 2rem;
 		max-width: 50rem;
 		text-align: center;

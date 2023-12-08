@@ -1,11 +1,9 @@
 <script lang="ts">
-	import Card, { Content, Actions, ActionButtons } from '@smui/card'
-	import Button, { Label } from '@smui/button'
 	import { goto } from '$app/navigation'
 </script>
 
-<Card>
-	<Content>
+<article>
+	<section>
 		<h1>Barcode Monkey</h1>
 		<h3>How to use</h3>
 		<ol>
@@ -35,16 +33,9 @@
 			</li>
 			<li>
 				The main application address:
-				<!-- svelte-ignore security-anchor-rel-noreferrer -->
 				<a href="https://barcodemonkey.app" target="_blank">barcodemonkey.app</a>
 			</li>
 		</ul>
-	</Content>
-	<Actions>
-		<ActionButtons>
-			<Button on:click={() => goto('/')}>
-				<Label>Let's scan!</Label>
-			</Button>
-		</ActionButtons>
-	</Actions>
-</Card>
+	</section>
+	<button on:click={() => goto('/')}> Let's scan! </button>
+</article>

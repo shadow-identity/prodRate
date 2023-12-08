@@ -1,6 +1,4 @@
 <script lang="ts">
-	import Card, { Content, Actions } from '@smui/card'
-	import Button, { Label } from '@smui/button'
 	import { errorStore } from '$lib/stores'
 	import { EMAIL } from '$lib/constants'
 
@@ -14,36 +12,30 @@
 
 {#if $errorStore.description || $errorStore.errorObject}
 	<div class="card-container">
-		<Card>
-			<div style="padding: 1rem;">
-				<h2 class="mdc-typography--headline6">
-					{errorMessage ? 'Error occured' : 'Unknown error occured.'}
-				</h2>
-			</div>
-			<Content>
-				{#if errorMessage}
-					<p>
-						{errorMessage}
-					</p>
-				{/if}
+		<div style="padding: 1rem;">
+			<h2 class="mdc-typography--headline6">
+				{errorMessage ? 'Error occured' : 'Unknown error occured.'}
+			</h2>
+		</div>
+		<article>
+			{#if errorMessage}
 				<p>
-					Please try to reload the page or send an automatically generated bug report to the
-					developer.
+					{errorMessage}
 				</p>
-				<p>
-					You can view and edit suggested report or send it as is. By default the report contains
-					your browser and operation system version.
-				</p>
-			</Content>
-			<Actions>
-				<Button on:click={() => window.open(link)}>
-					<Label>Send Report</Label>
-				</Button>
-				<Button on:click={() => location.reload()}>
-					<Label>Reload</Label>
-				</Button>
-			</Actions>
-		</Card>
+			{/if}
+			<p>
+				Please try to reload the page or send an automatically generated bug report to the
+				developer.
+			</p>
+			<p>
+				You can view and edit suggested report or send it as is. By default the report contains your
+				browser and operation system version.
+			</p>
+		</article>
+		<section>
+			<button on:click={() => window.open(link)}> Send Report </button>
+			<button on:click={() => location.reload()}> Reload </button>
+		</section>
 	</div>
 {/if}
 
