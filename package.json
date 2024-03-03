@@ -2,7 +2,7 @@
 	"name": "prodrate",
 	"version": "0.0.6",
 	"scripts": {
-		"dev": "vite dev --https --host",
+		"dev": "vite dev --host",
 		"build": "vite build",
 		"preview": "vite preview",
 		"test": "npm run test:integration && npm run test:unit",

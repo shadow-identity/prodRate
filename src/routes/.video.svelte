@@ -22,7 +22,7 @@
 			if (isRetry) {
 				$errorStore = {
 					description: 'Error during initialization: videoELement is not ready',
-					errorObject: new Error(),
+					errorObject: new Error()
 				}
 			} else {
 				window.requestAnimationFrame(() => init(true))
@@ -30,9 +30,10 @@
 			return
 		}
 		try {
+			// @ts-expect-error
 			stream = await navigator.mediaDevices.getUserMedia({
 				video: { facingMode: 'environment' },
-				audio: false,
+				audio: false
 			})
 		} catch (error: any) {
 			let description = ''
@@ -45,7 +46,7 @@
 
 			$errorStore = {
 				description,
-				errorObject: error.stack ? error : new Error(error),
+				errorObject: error.stack ? error : new Error(error)
 			}
 			throw error
 		}
@@ -62,17 +63,17 @@
 			videoElement.onloadeddata = () => dispatch('videoReady')
 			videoElement.srcObject = stream
 			await videoElement.play()
-		} catch (error: any) {
+		} catch (videoElementError: any) {
 			$errorStore = {
 				description:
 					'Error during initialization: assignment a stream to a video element is falied.',
-				errorObject: error.stack ? error : new Error(error),
+				errorObject: videoElementError.stack ? videoElementError : new Error(videoElementError)
 			}
 		}
 		if (!stream.active) {
 			$errorStore = {
 				description: 'Error during initialization: video stream is not active.',
-				errorObject: new Error(),
+				errorObject: new Error()
 			}
 		}
 		initialized = true
@@ -128,7 +129,7 @@
 		} catch (error: any) {
 			$errorStore = {
 				description: 'Barcode detection error.',
-				errorObject: error.stack ? error : new Error(error),
+				errorObject: error.stack ? error : new Error(error)
 			}
 			throw error
 		} finally {
